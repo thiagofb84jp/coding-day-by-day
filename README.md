@@ -1,2 +1,2 @@
 # coding-day-by-day
-About Udemy Courses
+About Udemy Courses (Java and Javascript)
