@@ -1,5 +1,7 @@
 /**
  * Pontos Importantes:
+ * 1. O 'this' pode variar conforme a função é chamada;
+ * 2. Caso seja usada uma 'aeroFunction' o 'this' não irá variar nunca.
  * 
  */
 
