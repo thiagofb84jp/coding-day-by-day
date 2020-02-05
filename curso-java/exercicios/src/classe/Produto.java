@@ -1,33 +1,32 @@
 package classe;
 
 public class Produto {
-	//Atributos
+	// Atributos
 	String nome;
 	double preco;
-	double desconto;
-	
-	//Construtor Padrão (não necessita de parâmetros prévios)
-	Produto(){
-		
+	static double desconto = 0.25;
+
+	// Construtor Padrï¿½o (nï¿½o necessita de parï¿½metros prï¿½vios)
+	Produto() {
+
 	}
-	
-	//Construtores Alternativo
-	Produto(String nomeInicial){
+
+	// Construtores Alternativo
+	Produto(String nomeInicial) {
 		nome = nomeInicial;
 	}
-	
-	Produto(String nomeInicial, double precoInicial, double descontoInicial){
+
+	Produto(String nomeInicial, double precoInicial) {
 		nome = nomeInicial;
 		preco = precoInicial;
-		desconto = descontoInicial;
 	}
-	
-	//Métodos
+
+	// MÃ©todos
 	double precoComDesconto() {
 		return preco * (1 - desconto);
 	}
-	
-	double precoComDesconto(double descontoDoGerente){
+
+	double precoComDesconto(double descontoDoGerente) {
 		return preco * (1 - desconto + descontoDoGerente);
 	}
 }
