@@ -1,6 +1,8 @@
 /**
  * Pontos Importantes:
- * 1. 
+ * 1. Lodash é uma biblioteca pronta (conjunto de recursos prontos para serem usados);
+ * 2. Lembre-se: um Framework é um 'arcabouço'/estrutura para desenvolver o sistema seguindo as 
+ *      configurações que o próprio Framework oferece, onde o sistema é construído por cima.
  */
 
 //Forma de repassar um dos módulos do Node.JS (neste caso, o Lodash)

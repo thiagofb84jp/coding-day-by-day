@@ -6,9 +6,9 @@
  * 2. Lembre-se de que, deixando de forma global, qualquer arquivo do sistema terá acesso a sua App;
  */
 
-global.MinhaApp = {
+global.MinhaApp = Object.freeze({
     saudacao(){
         return 'Estou em todos os lugares!';
     },
     nome: 'Sistema Legal'
-}
+});

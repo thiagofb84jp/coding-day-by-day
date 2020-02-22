@@ -1,6 +1,6 @@
 /**
  * Pontos Importantes:
- * 1. 
+ * 1. Sem pontos importantes para acrescentar.
  */
 
 const url = 'http://files.cod3r.com.br/curso-js/funcionarios.json';
@@ -14,7 +14,7 @@ const menorSalario = (func, funcAtual) => {
 
 axios.get(url).then(response => {
     const funcionarios = response.data;
-    console.log(funcionarios);
+    //console.log(funcionarios);
 
     const func = funcionarios
         .filter(chineses)
