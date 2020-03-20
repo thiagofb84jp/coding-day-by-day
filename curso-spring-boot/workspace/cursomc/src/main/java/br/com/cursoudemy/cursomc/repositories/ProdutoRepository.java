@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.cursoudemy.cursomc.domain.Produto;
 
 /**
- * Esse objeto vai fazer várias buscas de acesso a dados relacionados a classe 'Categoria' 
+ * Esse objeto vai fazer várias buscas de acesso a dados relacionados a classe 'Produto' 
  *
  */
 @Repository
