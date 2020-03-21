@@ -6,6 +6,9 @@ public class Item {
 	int quantidade;
 	
 	double preco;
+
+	Compra compra;
+	
 	
 	Item(String nome, int quantidade, double preco){
 		this.nome = nome;
