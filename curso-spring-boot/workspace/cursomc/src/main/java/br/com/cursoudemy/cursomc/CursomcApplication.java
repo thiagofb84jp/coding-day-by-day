@@ -1,5 +1,6 @@
 package br.com.cursoudemy.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -16,13 +17,22 @@ import br.com.cursoudemy.cursomc.domain.Cidade;
 import br.com.cursoudemy.cursomc.domain.Cliente;
 import br.com.cursoudemy.cursomc.domain.Endereco;
 import br.com.cursoudemy.cursomc.domain.Estado;
+import br.com.cursoudemy.cursomc.domain.ItemPedido;
+import br.com.cursoudemy.cursomc.domain.Pagamento;
+import br.com.cursoudemy.cursomc.domain.PagamentoComBoleto;
+import br.com.cursoudemy.cursomc.domain.PagamentoComCartao;
+import br.com.cursoudemy.cursomc.domain.Pedido;
 import br.com.cursoudemy.cursomc.domain.Produto;
+import br.com.cursoudemy.cursomc.enums.EstadoPagamento;
 import br.com.cursoudemy.cursomc.enums.TipoCliente;
 import br.com.cursoudemy.cursomc.repositories.CategoriaRepository;
 import br.com.cursoudemy.cursomc.repositories.CidadeRepository;
 import br.com.cursoudemy.cursomc.repositories.ClienteRepository;
 import br.com.cursoudemy.cursomc.repositories.EnderecoRepository;
 import br.com.cursoudemy.cursomc.repositories.EstadoRepository;
+import br.com.cursoudemy.cursomc.repositories.ItemPedidoRepository;
+import br.com.cursoudemy.cursomc.repositories.PagamentoRepository;
+import br.com.cursoudemy.cursomc.repositories.PedidoRepository;
 import br.com.cursoudemy.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -45,7 +55,17 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -117,6 +137,35 @@ public class CursomcApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli2));
 		
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+		Pedido ped1 = new Pedido(null, simpleDateFormat.parse("30/03/2020 03:55"), cli1, e1);
+		Pedido ped2 = new Pedido(null, simpleDateFormat.parse("30/04/2020 03:55"), cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, simpleDateFormat.parse("01/05/2020 03:55"), null);
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido itemPedido1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido itemPedido2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido itemPedido3 = new ItemPedido(ped1, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(itemPedido1, itemPedido2));
+		ped2.getItens().addAll(Arrays.asList(itemPedido3));
+		
+		p1.getItens().addAll(Arrays.asList(itemPedido1));
+		p2.getItens().addAll(Arrays.asList(itemPedido3));
+		p3.getItens().addAll(Arrays.asList(itemPedido2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}
 
 	String genValue(int qtyCharacters) {
