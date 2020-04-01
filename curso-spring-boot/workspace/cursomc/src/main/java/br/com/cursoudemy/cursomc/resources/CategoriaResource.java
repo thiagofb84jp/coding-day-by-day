@@ -58,6 +58,12 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> findAll() {
+		List<Categoria> list = categoriaService.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	/*@RequestMapping(method = RequestMethod.GET)
 	public List<Categoria> listar() {
 		Categoria cat1 = new Categoria(1, new Faker().company().name());
 		Categoria cat2 = new Categoria(2, new Faker().company().name());
@@ -67,5 +73,5 @@ public class CategoriaResource {
 		listaCategoria.add(cat2);
 
 		return listaCategoria;
-	}
+	}*/
 }
