@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GUess a number</title>
+    <script>
+        const num = Math.ceil(Math.random() * 10);
+        console.log(num);
+
+        const gNum = prompt('Guess the number between 1 and 10 inclusive');
+
+        if (gNum == num) {
+            console.log('Matched!');
+        } else {
+            console.log('Not matched. The number was: ' + gNum);
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

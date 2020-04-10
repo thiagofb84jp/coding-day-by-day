@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript program to calculate multiplication and division of two numbers</title>
+    <style type="text/css">
+        body {
+            margin: 30px;
+        }
+    </style>
+    <script>
+        function mutiplyBy(){
+            num1 = document.getElementById("firstNumber").value;
+            num2 = document.getElementById("secondNumber").value;
+            document.getElementById("result").innerHTML = num1 * num2;
+        }
+
+        function divideBy(){
+            num1 = document.getElementById("firstNumber").value;
+            num2 = document.getElementById("secondNumber").value;
+            document.getElementById("result").innerHTML = num1 / num2;
+        }
+
+        function clearValues(firstNumber, secondNumber){
+            document.getElementById(firstNumber).value = '';
+            document.getElementById(secondNumber).value = '';
+        }
+    </script>
+</head>
+<body>
+    <form>
+        1st Number : <input type="text" id="firstNumber" /><br>
+        2st Number : <input type="text" id="secondNumber" /><br><br>
+        <input type="button" onclick="mutiplyBy()" value="Multiply" />
+        <input type="button" onclick="divideBy()" value="Divide" />
+        <input type="button" onclick="clearValues('firstNumber', 'secondNumber')" value="Clear Values" />
+    </form>
+    <p>The result is : <br> <span id="result"></span></p>
+</body>
+</html>
