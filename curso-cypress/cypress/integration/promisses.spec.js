@@ -1,16 +1,19 @@
 it(' sem testes, ainda ', () => { })
 
-const getSomething = () => {
-    setTimeout(() => {
-       console.log('respondendo...');
-       return 11; 
-    }, 1000);
+//We have a promise here (Javascript function)
+const getSomething = callback => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(13);
+        }, 1000);
+    });
 };
 
 const system = () => {
     console.log('init');
-    const something = getSomething();
-    console.log(`Something is ${something}`); //interpolação
+    getSomething().then(some => {
+        console.log(`Something is ${some}`) //interpolação
+    });
     console.log('end');
 }
 
