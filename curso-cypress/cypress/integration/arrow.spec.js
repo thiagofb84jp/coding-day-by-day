@@ -1,3 +1,5 @@
+//npm run cypress:open (command to run cypress)
+
 it('nada agora', function() {});
 
 /*function soma(a, b){
