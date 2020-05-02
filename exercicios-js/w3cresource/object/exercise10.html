@@ -1,0 +1,17 @@
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript function to check whether a specified value is a DOM element</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+    <script>
+            function isDomElement(object) {
+                return !(object && object.nodeType === 1);
+            }
+
+            console.log(isDomElement(jQuery('body')[0]));
+    </script>
+</head>
+<body>
+</body>

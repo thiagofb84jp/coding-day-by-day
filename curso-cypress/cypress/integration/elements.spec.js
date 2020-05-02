@@ -49,13 +49,44 @@ describe(' Work with basic elements ', () => {
             .should('have.value', 'acerto');
     });
 
-    it.only(' Radiobutton ', () =>{
+    it(' Radiobutton ', () =>{
         cy.get('#formSexoFem')
             .click()
             .should('be.checked');
 
         cy.get('#formSexoMasc')
             .should('not.be.checked');
+
+        cy.get("[name=formSexo]").should('have.length', 2);
     });
 
+    it(' Checkbox ', () => {
+        cy.get('#formComidaPizza')
+            .click()
+            .should('be.checked');
+
+        cy.get("[name=formComidaFavorita]").click({ multiple: true });
+        cy.get('#formComidaPizza').should('not.be.checked');
+        cy.get("#formComidaVegetariana").should('be.checked');
+    });
+
+    it(' Combo ', () => {
+        cy.get('[data-test=dataEscolaridade]')
+            .select('2o grau completo')
+            .should('have.value', '2graucomp');
+
+        cy.get('[data-test=dataEscolaridade]')
+            .select('1o grau completo')
+            .should('have.value', '1graucomp');
+
+        //TODO Validar opções do combo
+    });
+
+    it.only(' Combo Múltiplo ', () => {
+        cy.get('[data-testid=dataEsportes]')
+            .select(['natacao', 'Corrida', 'nada'])
+
+        //TODO Validar opções do combo múltiplo    
+    });
+    
 });
