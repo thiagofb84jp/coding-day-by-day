@@ -19,7 +19,12 @@ public class CarroTeste {
 		c1.acelerar();
 		System.out.println(c1);
 
-		Carro c2 = new Ferrari(400);
+		Ferrari c2 = new Ferrari(400);
+		c2.ligarTurbo();
+		c2.ligarAr();
+		c2.desligarAr();
+		
+		System.out.println(c2.velocidadeDoAr());
 		System.out.println("\n/************** FERRARI **************/");
 		
 		c2.acelerar();
