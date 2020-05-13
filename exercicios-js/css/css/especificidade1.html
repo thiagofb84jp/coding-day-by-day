@@ -6,6 +6,36 @@
     <title>Especificidade CSS</title>
     <style>
         /* https://developer.mozilla.org/pt-BR/docs/Web/CSS/Specificity */
+        /**
+        O que são especificidades?
+        Trata-se da maneira de como os navegadores definem quais valores de propriedades são os mais 
+            relevantes para o elemento a ser utilizado. A especificação é baseada apenas nas 
+                regras impostas na composição de diferentes tipos de seletores.
+        
+        Em linhas gerais...
+        1. Regra com !important;
+        2. Seletores mais específicos;
+        3. Última regra processada (empate);
+
+        Lembre-se que:
+        1. !important não tem nada a ver com especificação
+        **/
+        
+        p {
+            background-color: #aaa;
+        }
+        
+        .observacao {
+            background-color: #5F5;
+            border: dashed 5px;
+            padding: 200px!important;
+            font-size: 40px;
+        }
+        
+        p.observacao {
+            padding: 2px!important;
+            background: linear-gradient(to right, red, yellow);
+        }
     </style>
 </head>
 

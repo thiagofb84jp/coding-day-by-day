@@ -49,7 +49,7 @@ describe(' Work with basic elements ', () => {
             .should('have.value', 'acerto');
     });
 
-    it(' Radiobutton ', () =>{
+    it(' Radiobutton ', () => {
         cy.get('#formSexoFem')
             .click()
             .should('be.checked');
@@ -70,7 +70,7 @@ describe(' Work with basic elements ', () => {
         cy.get("#formComidaVegetariana").should('be.checked');
     });
 
-    it(' Combo ', () => {
+    it.only(' Combo ', () => {
         cy.get('[data-test=dataEscolaridade]')
             .select('2o grau completo')
             .should('have.value', '2graucomp');
@@ -79,14 +79,37 @@ describe(' Work with basic elements ', () => {
             .select('1o grau completo')
             .should('have.value', '1graucomp');
 
-        //TODO Validar opções do combo
+        cy.get('[data-test=dataEscolaridade] option').should('have.length', 8);
+
+        cy.get('[data-test=dataEscolaridade] option').then($array => {
+            const values = [];
+
+            $array.each(function() {
+                values.push(this.innerHTML);
+            });
+
+            expect(values).to.include.members(["Superior", "Mestrado"]);
+        });
+
     });
 
     it.only(' Combo Múltiplo ', () => {
         cy.get('[data-testid=dataEsportes]')
-            .select(['natacao', 'Corrida', 'nada'])
+            .select(['natacao', 'Corrida', 'nada']);
 
-        //TODO Validar opções do combo múltiplo    
+        cy.get('[data-testid=dataEsportes]').then($element => {
+            expect($element.val())
+                .to.be
+                .deep.equal(['natacao', 'Corrida', 'nada']);
+            expect($element.val())
+                .to.have
+                .length(3);
+        });
+
+        cy.get('[data-testid=dataEsportes]')
+            .invoke('val')
+            .should('eql', ['natacao', 'Corrida', 'nada']);
+
     });
-    
+
 });
