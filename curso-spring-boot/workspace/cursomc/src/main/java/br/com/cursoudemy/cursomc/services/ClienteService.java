@@ -9,18 +9,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.cursoudemy.cursomc.domain.Cidade;
 import br.com.cursoudemy.cursomc.domain.Cliente;
+import br.com.cursoudemy.cursomc.domain.Endereco;
 import br.com.cursoudemy.cursomc.dto.ClienteDTO;
+import br.com.cursoudemy.cursomc.dto.ClienteNewDTO;
+import br.com.cursoudemy.cursomc.enums.TipoCliente;
 import br.com.cursoudemy.cursomc.exceptions.DataIntegrityException;
 import br.com.cursoudemy.cursomc.exceptions.ObjectNotFoundException;
 import br.com.cursoudemy.cursomc.repositories.ClienteRepository;
+import br.com.cursoudemy.cursomc.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	
 	public Cliente find(Integer id) throws ObjectNotFoundException {
 		Optional<Cliente> obj = clienteRepository.findById(id);
@@ -29,10 +39,20 @@ public class ClienteService {
 									+ id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
+	@Transactional
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		obj = clienteRepository.save(obj);
+		
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
+	}
+	
 	public Cliente update(Cliente obj) {
-		find(obj.getId());
+		Cliente newObj = find(obj.getId());
+		updateData(newObj, obj);
 
-		return clienteRepository.save(obj);
+		return clienteRepository.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -41,7 +61,7 @@ public class ClienteService {
 		try {
 			clienteRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma categoria que possui clientes.");
+			throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas.");
 		}
 	}
 
@@ -56,5 +76,33 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
+	}
+	
+	public Cliente fromDTO(ClienteNewDTO objDTO) {
+		Cliente cliente = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getNumero(), 
+									TipoCliente.toEnum(objDTO.getTipoCliente()));
+		
+		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null);
+		
+		Endereco endereco = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), 
+									objDTO.getBairro(), objDTO.getCep(), cliente, cidade);
+		
+		cliente.getEnderecos().add(endereco);
+		cliente.getTelefones().add(objDTO.getTelefone1());
+		
+		if (objDTO.getTelefone2() != null) {
+			cliente.getTelefones().add(objDTO.getTelefone2());
+		}
+		
+		if (objDTO.getTelefone3() != null) {
+			cliente.getTelefones().add(objDTO.getTelefone3());
+		}
+		
+		return cliente;
+	}
+	
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
 	}
 }
