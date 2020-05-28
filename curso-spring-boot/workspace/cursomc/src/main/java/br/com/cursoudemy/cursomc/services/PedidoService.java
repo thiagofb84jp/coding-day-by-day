@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cursoudemy.cursomc.domain.ItemPedido;
 import br.com.cursoudemy.cursomc.domain.PagamentoComBoleto;
@@ -33,6 +34,13 @@ public class PedidoService {
 	@Autowired
 	private BoletoService boletoService;
 
+	@Autowired
+	private ClienteService clienteService;
+
+	@Autowired
+	private EmailService emailService;
+	
+	
 	public Pedido find(Integer id) throws ObjectNotFoundException {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
 
@@ -40,9 +48,11 @@ public class PedidoService {
 				"Objeto não encontrado! ID: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 
+	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 
@@ -57,12 +67,13 @@ public class PedidoService {
 
 		for (ItemPedido itemPedido : obj.getItens()) {
 			itemPedido.setDesconto(0.0);
+			itemPedido.setProduto(produtoService.find(itemPedido.getProduto().getId()));
 			itemPedido.setPreco(produtoService.find(itemPedido.getProduto().getId()).getPreco());
 			itemPedido.setPedido(obj);
 		}
 
 		itemPedidoRepository.saveAll(obj.getItens());
-
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 }
