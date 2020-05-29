@@ -125,7 +125,9 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 		Cliente cli1 = new Cliente(null, new Faker(new Locale("pt-BR")).name().nameWithMiddle(),
-				"user" + genValue(3) + "@email.com", genValue(11), TipoCliente.PESSOAFISICA);
+				//"user" + genValue(3) + "@email.com", genValue(11), TipoCliente.PESSOAFISICA);
+				"thiagofb84jp@gmail.com", genValue(11), TipoCliente.PESSOAFISICA);
+				
 
 		Cliente cli2 = new Cliente(null, new Faker(new Locale("pt-BR")).name().nameWithMiddle(),
 				"user" + genValue(3) + "@email.com", genValue(11), TipoCliente.PESSOAFISICA);
