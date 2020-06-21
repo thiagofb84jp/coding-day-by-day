@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Set the background color of a paragraph</title>
+    <script>
+        setBackground = () => {
+            docBody = document.getElementsByTagName("body")[0];
+            myBodyElements = docBody.getElementsByTagName("p");
+
+            myp1 = myBodyElements[0];
+            myp1.style.background = "rgb(255,0,0)";
+
+            myp2 = myBodyElements[1];
+            myp2.style.background = "rgb(255,255,0)";
+
+            myp3 = myBodyElements[2];
+            myp3.style.background = "rgb(0,255,255)";
+        }
+
+        reloadPage = () => {
+            location.reload();
+        }
+    </script>
+</head>
+
+<body>
+    <p>Write a JavaScript program to set the background color of a paragraph.</p>
+    <input type="button" value="Click to set paragraph background color" onclick="setBackground()">
+    <p>w3resource JavaScript Exercises</p>
+    <p>w3resource PHP Exercises</p>
+    <button id="reload" onclick="reloadPage()">Reload Page</button>
+</body>
+
+</html>

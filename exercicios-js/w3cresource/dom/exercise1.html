@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM paragraphy style</title>
+    <script>
+        function jsStyle() {
+            text.style.fontSize = "14pt";
+            text.style.fontFamily = "Comic Sans MS";
+            text.style.color = "green";
+        }
+
+        reloadPage = () => {
+            location.reload();
+        }
+    </script>
+</head>
+<body>
+    <p id="text">Javascript Exercises - W3Resource</p>
+    <p>Here is a sample html file with a submit button. Now modify the style of the paragraph text 
+        through javascript code.
+    </p>
+    <div>
+        <button id="jsstyle" onclick="jsStyle()">Style</button>
+        <button id="reload" onclick="reloadPage()">Reload</button>
+    </div>
+</body>
+</html>

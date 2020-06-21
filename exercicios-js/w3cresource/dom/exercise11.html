@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Window Size : height and width</title>
+    <script>
+        getSize = () => {
+            let w = document.documentElement.clientWidth;
+            let h = document.documentElement.clientHeight;
+
+            document.getElementById('wh').innerHTML = "<h1>Width: " + w + " â€¢ Height:" +
+                "</h1>";
+        }
+    </script>
+</head>
+
+<body onload="getSize()" onresize="getSize()">
+    <p>Write a JavaScript program to get the width and height of the window (any time
+        the window is resized).</p>
+    <div id="wh">
+    </div>
+
+    <body>
+    </body>
+
+</html>
