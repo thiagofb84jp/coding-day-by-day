@@ -34,5 +34,7 @@ public class Exercise11 {
 		System.out.println("1) o produto do dobro do primeiro com metade do segundo: " + firstOperation);
 		System.out.println("2) a soma do triplo do primeiro com o terceiro: " + secondOperation);
 		System.out.println("3) o terceiro elevado ao cubo: " + format.format(thirdOperation));
+		
+		in.close();
 	}
 }
